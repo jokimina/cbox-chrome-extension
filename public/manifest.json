@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "CBox",
+  "short_name": "CBox",
+  "description": "Offline Command Box for Enhanced Browsing",
+  "version": "1.0.3",
+  "options_ui": {
+    "page": "options.html"
+  },
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content_script.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icon.png",
+        "chunk/*.js",
+        "assets/*"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "background": {
+    "service_worker": "service_worker.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "tabs",
+    "history",
+    "bookmarks"
+  ]
+}
