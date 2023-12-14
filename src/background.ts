@@ -17,15 +17,18 @@ class storageService {
     });
   }
 
-  static removePreviousTab(tabId: number) {
+  static removePreviousTab(tabId: number, callback: () => void) {
     storageService.listPreviousTabs((previousTabs) => {
       previousTabs?.splice(
         previousTabs.findIndex((tab) => tab.tabId === tabId),
         1,
       );
-      chrome.storage.local.set({
-        previousTabs,
-      });
+      chrome.storage.local.set(
+        {
+          previousTabs,
+        },
+        callback,
+      );
     });
   }
 
@@ -33,7 +36,7 @@ class storageService {
     callback: (tab: chrome.tabs.TabActiveInfo[]) => void,
   ) {
     chrome.storage.local.get('previousTabs', (result) => {
-      callback(result?.previousTabs ?? []);
+      callback(result?.previousTabs?.filter((tab: any) => tab) ?? []);
     });
   }
 }
@@ -46,10 +49,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
       break;
     case 'recentTabs':
-      storageService.listPreviousTabs((recentTabs) => {
-        chrome.tabs.query({}, (tabs) => {
-          const tabIds = recentTabs.map((tab) => tab.tabId);
-          sendResponse(tabIds.map((tabId) => tabs.find((tab) => tab.id === tabId)!));
+      chrome.tabs.query({}, (tabs) => {
+        storageService.listPreviousTabs((recentTabs) => {
+          sendResponse(
+            recentTabs
+              .map(
+                (activeTab) => tabs.find((tab) => tab.id === activeTab.tabId)!,
+              )
+              .filter((tab) => tab),
+          );
         });
       });
       break;
@@ -214,8 +222,9 @@ chrome.tabs.onCreated.addListener((tab) => {
   notifyTabUpdate();
 });
 chrome.tabs.onRemoved.addListener((tabId) => {
-  storageService.removePreviousTab(tabId);
-  notifyTabUpdate();
+  storageService.removePreviousTab(tabId, () => {
+    notifyTabUpdate();
+  });
 });
 chrome.tabs.onUpdated.addListener(() => {
   notifyTabUpdate();

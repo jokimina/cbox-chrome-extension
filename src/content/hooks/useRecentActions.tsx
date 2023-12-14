@@ -10,7 +10,7 @@ export const useRecentActions = () => {
   const actions = useMemo(() => {
     return tabs?.map(
       (tab, index): Action => ({
-        id: `recent-${tab.windowId}_${tab?.id?.toString()}`,
+        id: `recent-${tab?.windowId}_${tab?.id?.toString()}`,
         name: tab?.title ?? '',
         section: {
           name: RecentSection,
@@ -18,8 +18,8 @@ export const useRecentActions = () => {
         },
         subtitle: tab?.url,
         priority: 100 - index,
-        icon: tab.favIconUrl ? (
-          <img src={tab.favIconUrl} alt="icon" width={16} height={16} />
+        icon: tab?.favIconUrl ? (
+          <img src={tab?.favIconUrl} alt="icon" width={16} height={16} />
         ) : (
           <DefaultSvg />
         ),
