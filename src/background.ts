@@ -162,7 +162,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       chrome.history.search(
         {
           text: '',
-          // maxResults: 1000,
+          maxResults: 3000,
           startTime: dayjs().subtract(1, 'month').unix(),
         },
         (historys) => {
