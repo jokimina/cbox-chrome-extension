@@ -19,11 +19,11 @@ import { useRecentActions } from './hooks/useRecentActions';
 
 export default function KbarCommand() {
   useRecentActions();
-  useCommandActions();
   useOpenedTabActions();
-  useHistoryActions();
-  useBookmarkActions();
-  useQuickSearchActions();
+  // useCommandActions();
+  // useHistoryActions();
+  // useBookmarkActions();
+  // useQuickSearchActions();
 
   return (
     <KBarPortal>

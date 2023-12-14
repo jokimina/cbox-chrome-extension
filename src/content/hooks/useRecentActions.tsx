@@ -10,7 +10,7 @@ export const useRecentActions = () => {
   const actions = useMemo(() => {
     return tabs?.map(
       (tab): Action => ({
-        id: `${tab.windowId} ${tab?.id?.toString()}`,
+        id: `recent-${tab.windowId}_${tab?.id?.toString()}`,
         name: tab?.title ?? '',
         section: {
           name: RecentSection,
@@ -24,7 +24,7 @@ export const useRecentActions = () => {
           <DefaultSvg />
         ),
         perform: (action) => {
-          const [windowId, tabId] = action.id.split(' ');
+          const [windowId, tabId] = action.id?.replace('recent-', '')?.split('_');
           if (tabId) {
             chrome.runtime.sendMessage({
               type: 'activeTab',

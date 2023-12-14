@@ -12,7 +12,7 @@ export default function useOpenedTabActions() {
   const actions = useMemo(() => {
     return tabs?.map(
       (tab): Action => ({
-        id: `${tab.windowId} ${tab?.id?.toString()}`,
+        id: `opened-tab-${tab.windowId}_${tab?.id?.toString()}`,
         name: tab?.title ?? '',
         section: {
           name: OpenedTabSection,
@@ -23,9 +23,13 @@ export default function useOpenedTabActions() {
         keywords: '/o',
         icon: tab.favIconUrl ? (
           <img src={tab.favIconUrl} alt="icon" width={16} height={16} />
-        ) : <DefaultSvg />,
+        ) : (
+          <DefaultSvg />
+        ),
         perform: (action) => {
-          const [windowId, tabId] = action.id.split(' ');
+          const [windowId, tabId] = action.id
+            ?.replace('opened-tab-', '')
+            ?.split('_');
           if (tabId) {
             chrome.runtime.sendMessage({
               type: 'activeTab',
