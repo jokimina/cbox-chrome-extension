@@ -9,7 +9,7 @@ export const useRecentActions = () => {
   const [listening, setListening] = useState<boolean>(false);
   const actions = useMemo(() => {
     return tabs?.map(
-      (tab): Action => ({
+      (tab, index): Action => ({
         id: `recent-${tab.windowId}_${tab?.id?.toString()}`,
         name: tab?.title ?? '',
         section: {
@@ -17,7 +17,7 @@ export const useRecentActions = () => {
           priority: 2,
         },
         subtitle: tab?.url,
-        priority: 100,
+        priority: 100 - index,
         icon: tab.favIconUrl ? (
           <img src={tab.favIconUrl} alt="icon" width={16} height={16} />
         ) : (
@@ -46,7 +46,7 @@ export const useRecentActions = () => {
           type: 'recentTabs',
         },
         function (tabs: chrome.tabs.Tab[]) {
-          setTabs(tabs);
+          setTabs(tabs.slice(1, 4));
         },
       );
     };

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { deduplicateArrayByProperty } from './content/utils';
 
 class storageService {
-  static previousLimit = 3;
+  static previousLimit = 10;
 
   static setPreviousTab(tab: chrome.tabs.TabActiveInfo) {
     storageService.listPreviousTabs((previousTabs) => {
@@ -49,8 +49,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       storageService.listPreviousTabs((recentTabs) => {
         chrome.tabs.query({}, (tabs) => {
           const tabIds = recentTabs.map((tab) => tab.tabId);
-          const filteredTabs = tabs.filter((tab) => tabIds.includes(tab.id!));
-          sendResponse(filteredTabs);
+          sendResponse(tabIds.map((tabId) => tabs.find((tab) => tab.id === tabId)!));
         });
       });
       break;
