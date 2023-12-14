@@ -4,3 +4,4 @@ dist/
 tmp/
 *.zip
 .vscode
+.DS_Store

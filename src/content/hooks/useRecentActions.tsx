@@ -1,12 +1,10 @@
-import { Action, Priority, useRegisterActions } from 'kbar';
+import { Action, useRegisterActions } from 'kbar';
 import { useEffect, useMemo, useState } from 'react';
 import { DefaultSvg } from '../../components/icons';
 
-export const OpenedTabSection = 'Opened Tab';
+export const RecentSection = 'Recent';
 
-export const isOpenedTabPrompt = (text: string) => text.startsWith('/o');
-
-export default function useOpenedTabActions() {
+export const useRecentActions = () => {
   const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([]);
   const [listening, setListening] = useState<boolean>(false);
   const actions = useMemo(() => {
@@ -15,15 +13,16 @@ export default function useOpenedTabActions() {
         id: `${tab.windowId} ${tab?.id?.toString()}`,
         name: tab?.title ?? '',
         section: {
-          name: OpenedTabSection,
-          priority: Priority.HIGH,
+          name: RecentSection,
+          priority: 2,
         },
         subtitle: tab?.url,
         priority: 100,
-        keywords: '/o',
         icon: tab.favIconUrl ? (
           <img src={tab.favIconUrl} alt="icon" width={16} height={16} />
-        ) : <DefaultSvg />,
+        ) : (
+          <DefaultSvg />
+        ),
         perform: (action) => {
           const [windowId, tabId] = action.id.split(' ');
           if (tabId) {
@@ -44,7 +43,7 @@ export default function useOpenedTabActions() {
     const fetchData = () => {
       chrome.runtime.sendMessage(
         {
-          type: 'listTabs',
+          type: 'recentTabs',
         },
         function (tabs: chrome.tabs.Tab[]) {
           setTabs(tabs);
@@ -54,7 +53,7 @@ export default function useOpenedTabActions() {
 
     if (!listening) {
       chrome.runtime.onMessage.addListener((message: any) => {
-        if (message.type === 'tabUpdated') {
+        if (message.type === 'tabTabActive') {
           fetchData();
         }
       });
@@ -63,4 +62,4 @@ export default function useOpenedTabActions() {
 
     fetchData();
   }, []);
-}
+};

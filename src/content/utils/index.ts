@@ -32,3 +32,17 @@ export function getAllCombinations(arr: any[]): any[][] {
   generateCombinations([], arr);
   return combinations;
 }
+
+export function deduplicateArray<T>(arr: T[]): T[] {
+  const uniqueSet = new Set<T>();
+  const result: T[] = [];
+
+  for (const item of arr) {
+    if (!uniqueSet.has(item)) {
+      uniqueSet.add(item);
+      result.push(item);
+    }
+  }
+
+  return result;
+}

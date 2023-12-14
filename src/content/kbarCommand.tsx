@@ -15,8 +15,10 @@ import { useMatches } from './hooks/useMatches';
 import useOpenedTabActions from './hooks/useOpenedTabActions';
 import { useQuickSearchActions } from './hooks/useQuickSearchActions';
 import useCommandActions from './hooks/useCommandActions';
+import { useRecentActions } from './hooks/useRecentActions';
 
 export default function KbarCommand() {
+  useRecentActions();
   useCommandActions();
   useOpenedTabActions();
   useHistoryActions();

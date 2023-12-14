@@ -21,6 +21,7 @@ Then, run `pnpm dev` to start.
 
 - 🌐 Fully offline, no internet connection required.
 - ⌨️ You can wake it up on any page.
+- ⏰ Recently active tabs
 - 🔍 Search and quickly jump/open tabs from your open tabs, bookmarks, and browsing history (up to 7 days and a maximum of 500 entries).
 - 🔎 Quickly search and jump to different search engines.
 - ⚙️ Perform various browser operations with ease.

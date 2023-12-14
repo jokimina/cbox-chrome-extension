@@ -1,24 +1,36 @@
 import dayjs from 'dayjs';
+import { deduplicateArray } from './content/utils';
 
 class storageService {
-  static setPreviousTab(tab: chrome.tabs.TabActiveInfo) {
-    chrome.storage.local.get('previousTab', (item) => {
-      const { previousTab = [] } = item;
+  static previousLimit = 3;
 
-      if (previousTab?.length > 1) {
-        previousTab?.pop();
-      }
-      previousTab?.unshift(tab);
+  static setPreviousTab(tab: chrome.tabs.TabActiveInfo) {
+    storageService.listPreviousTabs((previousTabs) => {
+      previousTabs?.unshift(tab);
+      previousTabs = previousTabs?.slice(0, storageService.previousLimit);
       chrome.storage.local.set({
-        previousTab,
+        previousTab: deduplicateArray(previousTabs),
       });
     });
   }
 
-  static getPreviousTab(callback: (tab: chrome.tabs.TabActiveInfo) => void) {
+  static removePreviousTab(tabId: number) {
+    storageService.listPreviousTabs((previousTabs) => {
+      previousTabs?.splice(
+        previousTabs.findIndex((tab) => tab.tabId === tabId),
+        1,
+      );
+      chrome.storage.local.set({
+        previousTab: deduplicateArray(previousTabs),
+      });
+    });
+  }
+
+  static listPreviousTabs(
+    callback: (tab: chrome.tabs.TabActiveInfo[]) => void,
+  ) {
     chrome.storage.local.get('previousTab', (result) => {
-      console.log(result);
-      callback(result?.previousTab?.[1]);
+      callback(result?.previousTab ?? []);
     });
   }
 }
@@ -31,6 +43,15 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
       chrome.runtime.sendMessage({
         type: 'listTabs',
+      });
+      break;
+    case 'recentTabs':
+      storageService.listPreviousTabs((recentTabs) => {
+        chrome.tabs.query({}, (tabs) => {
+          const tabIds = recentTabs.map((tab) => tab.tabId);
+          const filteredTabs = tabs.filter((tab) => tabIds.includes(tab.id!))
+          sendResponse(filteredTabs);
+        });
       });
       break;
     case 'newTab':
@@ -63,8 +84,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
       break;
     case 'goBackTab':
-      storageService.getPreviousTab((tab) => {
-        if (!tab) return;
+      storageService.listPreviousTabs((tabs) => {
+        if (!tabs) return;
+        const tab = tabs[1];
         chrome.windows.update(tab.windowId, { focused: true });
         chrome.tabs.update(tab.tabId, { active: true });
       });
@@ -171,6 +193,7 @@ const notifyTabUpdate = () => {
     type: 'tabUpdated',
   });
 };
+
 chrome.tabs.onCreated.addListener((tab) => {
   if (tab.url?.startsWith('chrome://')) {
     chrome.tabs.executeScript(tab.id!, {
@@ -179,10 +202,16 @@ chrome.tabs.onCreated.addListener((tab) => {
   }
   notifyTabUpdate();
 });
-chrome.tabs.onRemoved.addListener(notifyTabUpdate);
+chrome.tabs.onRemoved.addListener((tabId) => {
+  storageService.removePreviousTab(tabId);
+  notifyTabUpdate();
+});
 chrome.tabs.onUpdated.addListener(notifyTabUpdate);
 chrome.tabs.onActivated.addListener((activeInfo) => {
   storageService.setPreviousTab(activeInfo);
+  notifyAllTabs({
+    type: 'tabTabActive',
+  });
 });
 
 const notifyBookmarkUpdate = () => {
