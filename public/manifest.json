@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "CBox",
   "short_name": "CBox",
-  "description": "Offline Command Box for Enhanced Browsing",
-  "version": "1.0.3",
+  "description": "Summon a command-line panel on any webpage for quick navigation, commands, and searches.",
+  "version": "1.0.5",
   "options_ui": {
     "page": "options.html"
   },

@@ -6,9 +6,9 @@ Welcome to CBox!
 
 CBox is a Chrome extension that allows you to summon a command-line panel on any webpage for quick navigation, commands, and searches.
 
-![CBox Demo](demo.gif)
+![CBox Demo](full-demo.gif)
 
-[Demo Video](https://www.youtube.com/watch?v=BBfVHPorl94)
+[Demo Video](https://www.youtube.com/watch?v=cHfkT2OMwtc)
 
 # Local Development
 
@@ -20,7 +20,6 @@ Then, run `pnpm dev` to start.
 
 > Please note that after the initial installation, you will need to refresh the page to activate it because Chrome content scripts can only be injected during page load.
 
-- [Download the latest version](https://pub-920f359544474b16a950b92ed0f6613e.r2.dev/cbox-1.0.3.zip)
 - [Chrome Web Store](https://chromewebstore.google.com/detail/cbox/cekckmkolmlobfidedolgcppfgbinhmc?hl=en)
 
 # Features
@@ -28,7 +27,7 @@ Then, run `pnpm dev` to start.
 - 🌐 Fully offline, no internet connection required.
 - ⌨️ You can wake it up on any page.
 - ⏰ Recently active tabs
-- 🔍 Search and quickly jump/open tabs from your open tabs, bookmarks, and browsing history (up to 7 days and a maximum of 500 entries).
+- 🔍 Search and quickly jump/open tabs from your open tabs, bookmarks, and browsing history (up to 1 month and a maximum of 1000 entries).
 - 🔎 Quickly search and jump to different search engines.
 - ⚙️ Perform various browser operations with ease.
 

@@ -176,7 +176,7 @@ export default function useCommandActions() {
         section: CommandSection,
         keywords: '>gd,>gotodocs',
         perform: () => {
-          window.open('https://cbox-docs.vercel.app', '_blank')
+          window.open('https://github.com/jokimina/cbox-chrome-extension', '_blank')
         },
       },
     ],
