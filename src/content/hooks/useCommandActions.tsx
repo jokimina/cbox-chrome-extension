@@ -1,6 +1,6 @@
 import { useRegisterActions } from 'kbar';
 
-export const CommandSection = 'CommandSection';
+export const CommandSection = 'Command';
 
 export const isCommandPrompt = (text: string) => text.startsWith('>');
 
@@ -16,7 +16,9 @@ export default function useCommandActions() {
         keywords: '>od,>/opendownload',
         priority: 1,
         perform: () => {
-          window.open('chrome://downloads/', '_blank')
+          chrome.runtime.sendMessage({
+            type: 'openDownload',
+          });
         },
       },
       // go back tab

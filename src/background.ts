@@ -43,6 +43,11 @@ class storageService {
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message?.type) {
+    case 'openDownload':
+      chrome.tabs.create({
+        url: 'chrome://downloads/',
+      });
+      break;
     case 'listTabs':
       chrome.tabs.query({}, (tabs) => {
         sendResponse(tabs);
