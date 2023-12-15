@@ -2,7 +2,13 @@
 
 # 简介
 
-欢迎使用 CBox！CBox 是一个增强浏览体验的 Chrome 浏览器扩展，它提供了一个命令框功能。
+欢迎使用 CBox！
+
+CBox 是一个在任意页面唤醒命令行面板，快速导航/指令/搜索的 Chrome 插件。
+
+![CBox Demo](simple-demo.gif)
+
+[演示视频](https://www.youtube.com/watch?v=BBfVHPorl94)
 
 # 本地开发
 
@@ -27,8 +33,6 @@
 - ⚙️ 轻松执行各种浏览器操作。
 
 # 使用方法
-
-![CBox Demo](simple-demo.gif)
 
 在任何页面上，按下 `Ctrl` + `Shift` + `K` 打开命令框。
 

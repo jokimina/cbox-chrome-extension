@@ -46,7 +46,7 @@ export const useRecentActions = () => {
           type: 'recentTabs',
         },
         function (tabs: chrome.tabs.Tab[]) {
-          setTabs(tabs.slice(1, 4));
+          setTabs(tabs.slice(1, 6));
         },
       );
     };

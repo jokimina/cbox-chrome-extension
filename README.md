@@ -2,7 +2,13 @@ English | [中文](README_zh.md)
 
 # Introduction
 
-Welcome to CBox! CBox is a Chrome browser extension that enhances your browsing experience with a command box.
+Welcome to CBox!
+
+CBox is a Chrome extension that allows you to summon a command-line panel on any webpage for quick navigation, commands, and searches.
+
+![CBox Demo](simple-demo.gif)
+
+[Demo Video](https://www.youtube.com/watch?v=BBfVHPorl94)
 
 # Local Development
 
@@ -27,8 +33,6 @@ Then, run `pnpm dev` to start.
 - ⚙️ Perform various browser operations with ease.
 
 # Usage
-
-![CBox Demo](simple-demo.gif)
 
 At any page, press `Ctrl` + `Shift` + `K` to open the command box.
 

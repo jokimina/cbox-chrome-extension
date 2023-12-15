@@ -20,9 +20,9 @@ export default function FootBar() {
       />{' '}
       {chrome.runtime.getManifest().name} v
       {chrome.runtime.getManifest().version}
-      {/* docs */}
+      {/* github */}
       <a
-        href={'https://cbox-docs.vercel.app'}
+        href={'https://github.com/jokimina/cbox-chrome-extension'}
         target="_blank"
         rel="noreferrer"
         style={{
@@ -30,7 +30,7 @@ export default function FootBar() {
           textDecoration: 'underline',
         }}
       >
-        docs
+        github
       </a>
       {/* twitter  */}
       <a
