@@ -6,7 +6,7 @@
 
 CBox 是一个在任意页面唤醒命令行面板，快速导航/指令/搜索的 Chrome 插件。
 
-![CBox Demo](simple-demo.gif)
+![CBox Demo](demo.gif)
 
 [演示视频](https://www.youtube.com/watch?v=BBfVHPorl94)
 
