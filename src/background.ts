@@ -208,6 +208,7 @@ const notifyTabUpdate = () => {
 
 const notifyTabActive = () => {
   chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+    if (!tabs[0]) return;
     storageService.setPreviousTab({
       tabId: tabs[0].id!,
       windowId: tabs[0].windowId!,
@@ -218,12 +219,7 @@ const notifyTabActive = () => {
   });
 };
 
-chrome.tabs.onCreated.addListener((tab) => {
-  if (tab.url?.startsWith('chrome://')) {
-    chrome.tabs.executeScript(tab.id!, {
-      file: 'content_script.js',
-    });
-  }
+chrome.tabs.onCreated.addListener(() => {
   notifyTabUpdate();
 });
 chrome.tabs.onRemoved.addListener((tabId) => {
