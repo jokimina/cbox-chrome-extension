@@ -30,6 +30,7 @@ Then, run `pnpm dev` to start.
 - 🔍 Search and quickly jump/open tabs from your open tabs, bookmarks, and browsing history (up to 1 month and a maximum of 1000 entries).
 - 🔎 Quickly search and jump to different search engines.
 - ⚙️ Perform various browser operations with ease.
+- ⌨️ Custom shortcut
 
 # Usage
 
