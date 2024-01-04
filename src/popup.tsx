@@ -49,6 +49,15 @@ const Popup = () => {
               </p>
             )}
           </div>
+          <div className="flex flex-row content-center mt-2">
+            <a href="https://github.com/jamiebuilds/tinykeys?tab=readme-ov-file#commonly-used-keys-and-codes" target='_blank'>
+              快捷键设置键位对照表
+            </a>
+            ，例如：Control+Shift+K
+          </div>
+          <div className="flex flex-row content-center mt-2">
+            请注意，设置完成后刷新页面才会生效哦
+          </div>
         </form>
       </div>
       <FootBar />
