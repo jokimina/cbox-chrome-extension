@@ -19,7 +19,7 @@ const Popup = () => {
 
   useEffect(() => {
     getConfig().then((config) => {
-      setShortcutV(config?.shortcut || 'Control+Shift+K');
+      setShortcutV(config?.shortcut);
     });
   }, []);
 

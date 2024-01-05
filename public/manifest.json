@@ -3,7 +3,7 @@
   "name": "CBox",
   "short_name": "CBox",
   "description": "Summon a command-line panel on any webpage for quick navigation, commands, and searches.",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "options_ui": {
     "page": "options.html"
   },

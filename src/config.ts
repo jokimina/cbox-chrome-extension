@@ -7,6 +7,8 @@ export const setConfig = (config: Config) => {
 };
 
 export const getConfig = async () => {
-  const { config } = await chrome.storage.sync.get('config');
+  const { config = {
+    shortcut: 'Control+Shift+K',
+  } } = await chrome.storage.sync.get('config');
   return config;
 };
